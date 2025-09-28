@@ -1,19 +1,24 @@
 ﻿using Common.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Data
 {
     public class ExpensesDbContext : DbContext
     {
-        public ExpensesDbContext(DbContextOptions<ExpensesDbContext> options) : base(options)
+        public DbSet<Transaction> Transactions { get; set; } = default!;
+
+        public ExpensesDbContext(DbContextOptions<ExpensesDbContext> options)
+            : base(options)
         {
         }
 
-        public DbSet<Transaction> Transactions { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Transaction>()
+                .Property(t => t.Id)
+                .HasDefaultValueSql("gen_random_uuid()"); // PostgreSQL: auto-generate GUID
+        }
     }
 }
