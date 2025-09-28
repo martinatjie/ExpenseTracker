@@ -26,7 +26,7 @@ var transformationService = new TransformationService(logger);
     transformationService.TransformData(fileStream);
 }*/
 
-//transformationService.TransformData(inputPath);
-
-transformationService.TransformDataAdvanced(inputPath, outputPath);
+transformationService.TransformData(inputPath);
+//transformationService.TransformDataAdvanced(inputPath, outputPath);
+//transformationService.TransformDataUsingBlocksXyCut(inputPath);
 Console.ReadLine();
